@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/media/alpasfly/bcbc23d3-5a46-4412-b4b8-363071d18a434/Week1_2018-03-08'
+let g:netrw_dirhist_0='/media/alpasfly/bcbc23d3-5a46-4412-b4b8-363071d18a434'
+let g:netrw_dirhist_9='/home/alpasfly/.config/i3'
+let g:netrw_dirhist_8='/home/alpasfly/.config'
+let g:netrw_dirhist_7='/home/alpasfly/plp5'
+let g:netrw_dirhist_6='/home/alpasfly/catkin_ws/src/dataset_tools/lidar_camera_projection/lidar_camera_bag_playback'
+let g:netrw_dirhist_5='/home/alpasfly/catkin_ws/src/dataset_tools/lidar_camera_projection/lidar_camera_projection'
+let g:netrw_dirhist_4='/home/alpasfly/catkin_ws/src/dataset_tools/lidar_camera_projection/lidar_camera_bag_playback'
+let g:netrw_dirhist_3='/home/alpasfly/EI/Tokenizador/lib'
+let g:netrw_dirhist_2='/home/alpasfly/EI/Tokenizador'

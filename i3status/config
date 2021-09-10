@@ -1,0 +1,59 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 5
+}
+order += "spotify"
+#order += "pomodoro"
+order += "disk /"
+order += "sysdata"
+order += "nvidia_temp"
+#order += "net_rate"
+order += "volume master"
+order += "tztime local"
+
+spotify {
+  format = " {title} by {artist}"
+  format_down = "  Spotify"
+}
+
+pomodoro {
+  format = "{mmss}"
+}
+
+disk "/" {
+  format = "SSD: %avail"
+  on_click 1 = "exec thunar /"
+}
+
+sysdata {
+  format = "[\?color=cpu CPU: {cpu_usage}% ({cpu_temp}{temp_unit})], [\?color=mem RAM: {mem_used}/{mem_total}{mem_unit} ({mem_used_percent}%)], [\?color=swap Swap: {swap_used}/{swap_total} ({swap_used_percent}%)]"
+}
+
+net_rate {
+	format = "{interface}  {down}  {up}"
+}
+
+
+volume master {
+    format = "♪: %volume"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+    on_click 1 = "exec i3-sensible-terminal -e alsamixer"
+    on_click 2 = "exec amixer set Master toggle"
+    on_click 3 = "exec killall alsamixer"
+    on_click 4 = "exec amixer set Master 1+"
+    on_click 5 = "exec amixer set Master 1-"
+}
+
+tztime local{
+  format = "  %c"
+}
