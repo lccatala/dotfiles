@@ -22,6 +22,7 @@ set colorcolumn=80
 set signcolumn=yes
 set updatetime=50
 set shortmess+=c
+set cursorline
 
 call plug#begin('~/.config/nvim/autoload')
 
@@ -39,6 +40,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'arzg/vim-colors-xcode'
+Plug 'kyoz/purify'
+
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 
 "Autocomplete plugin
 "Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java
@@ -51,10 +55,13 @@ Plug 'fatih/vim-go'
 
 "Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'jonathanfilip/vim-lucius'
+
 
 call plug#end()
 
-colorscheme xcodedarkhc
+colorscheme onehalfdark
 set background=dark
 highlight Normal guibg=none
 
