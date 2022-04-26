@@ -5,6 +5,7 @@ set shiftwidth=4
 set expandtab
 set smartindent
 set nu
+set nu rnu
 set wrap
 set smartcase
 set noswapfile
@@ -14,7 +15,6 @@ set undofile
 set incsearch
 set colorcolumn=80
 set exrc
-set guicursor=
 set nohlsearch
 set hidden
 set scrolloff=8
@@ -23,6 +23,7 @@ set signcolumn=yes
 set updatetime=50
 set shortmess+=c
 set cursorline
+set shell=zsh
 
 call plug#begin('~/.config/nvim/autoload')
 
@@ -33,20 +34,31 @@ call plug#begin('~/.config/nvim/autoload')
 "Plug 'git@github.com:kien/ctrlp.vim.git'
 "Plug 'Valloric/YouCompleteMe'
 Plug 'mbbill/undotree'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+
+" LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
+"Telescope Requirements
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" Comments
+Plug 'terrortylor/nvim-comment'
+
+" Devicons
+Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'arzg/vim-colors-xcode'
 Plug 'kyoz/purify'
-
-Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
-
-"Autocomplete plugin
-"Also do :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-python coc-java
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Language packs
 Plug 'sheerun/vim-polyglot'
@@ -55,18 +67,43 @@ Plug 'fatih/vim-go'
 
 "Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'jonathanfilip/vim-lucius'
 
+" Color schemes
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'rhysd/vim-color-spring-night'
+Plug 'mhartington/oceanic-next'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
+" Status line
+Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
-colorscheme onehalfdark
+if has("unix")
+  let s:uname = system("uname -s")
+  " Do Mac stuff
+  if s:uname == "Darwin\n"
+    runtime ./macos.vim
+  endif
+endif
+
+" if (has('termguicolors'))
+"   set termguicolors
+" endif
+
 set background=dark
 highlight Normal guibg=none
 
-"let mapleader = " "
+"highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40
+"highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000
+
+let mapleader = " "
 "nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for > ")})
+
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -78,11 +115,6 @@ augroup ALPASFLY
     autocmd!
     autocmd BufWritePre * :call TrimWhitespace()
 augroup END
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
 """""""""""""""""""""""""""
@@ -179,3 +211,11 @@ let g:mkdp_page_title = '「${name}」'
 " recognized filetypes
 " these filetypes will have MarkdownPreview... commands
 let g:mkdp_filetypes = ['markdown']
+
+
+" TELESCOPE
+lua require("alpasfly")
+nnoremap <C-_> <cmd>lua require("alpasfly").curr_buf() <cr>
+nnoremap <F4> :lua package.loaded.alpasfly = nil <cr>:source ~/.config/nvim/init.vim<cr>
+nnoremap <C-p> :Telescope find_files<cr>
+"nnoremap <C-_> <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get)<cr>

@@ -104,14 +104,14 @@ window:
 # Font configuration
 font:
   # Normal (roman) font face
-  #normal:
+  normal:
     # Font family
     #
     # Default:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: monospace
+    family: "MesloLGS NF"
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -150,7 +150,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 20.0
+  size: 26.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -315,7 +315,7 @@ font:
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
-#bell:
+bell:
   # Visual Bell Animation
   #
   # Animation effect for flashing the screen when the visual bell is rung.
@@ -331,11 +331,11 @@ font:
   #   - EaseOutExpo
   #   - EaseOutCirc
   #   - Linear
-  #animation: EaseOutExpo
+  animation: EaseOutExpo
 
   # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
   # disable the visual bell animation.
-  #duration: 0
+  duration: 0
 
   # Visual bell animation color.
   #color: '#ffffff'
@@ -351,7 +351,7 @@ font:
   #     program: notify-send
   #     args: ["Hello, World!"]
   #
-  #command: None
+  command: None
 
 # Background opacity
 #
@@ -523,6 +523,8 @@ font:
 # default paste binding:
 #
 # `- { key: V, mods: Control|Shift, action: Paste }`
+key_bindings:
+- { key: Slash,   mods: Control,       chars: "\x1f" }
 #
 # Each key binding will specify a:
 #
@@ -851,3 +853,4 @@ font:
 
   # Print all received window events.
   #print_events: false
+
