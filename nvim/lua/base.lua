@@ -1,4 +1,5 @@
 vim.cmd('autocmd!')
+vim.cmd [[packadd packer.nvim]]
 
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
@@ -6,11 +7,11 @@ vim.opt.fileencoding = 'utf-8'
 
 vim.wo.number = true
 vim.wo.relativenumber = true
-vim.wo.colorcolumn = '80'
+-- vim.wo.colorcolumn = '80'
 vim.opt.title = true
 
 vim.opt.autoindent = true
-vim.opt.hlsearch = true
+vim.opt.hlsearch = false
 vim.opt.backup = false
 vim.opt.showcmd = true
 vim.opt.cmdheight = 1
@@ -23,8 +24,8 @@ vim.opt.inccommand = 'split'
 vim.opt.ignorecase = true
 vim.opt.smarttab = true
 vim.opt.breakindent = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
 vim.opt.ai = true
 vim.opt.si = true
 vim.opt.wrap = true
@@ -45,10 +46,14 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 vim.opt.formatoptions:append { 'r' }
 
 vim.opt.cursorline = true
-vim.opt.termguicolors = true
 vim.opt.completeopt={"menu", "menuone", "noselect"}
 
-vim.cmd("colorscheme OceanicNext")
-vim.wo.guibg = false
-vim.wo.ctermbg = false
-
+vim.opt.termguicolors = true
+-- vim.cmd[[colorscheme tokyonight]]
+-- vim.cmd.colorscheme('NeoSolarized')
+-- vim.cmd.colorscheme('gruvbox')
+vim.cmd.colorscheme(colorscheme)
+-- vim.cmd[[colorscheme solarized]]
+-- vim.wo.guibg = false
+-- vim.wo.ctermbg = false
+vim.opt.undofile = true
