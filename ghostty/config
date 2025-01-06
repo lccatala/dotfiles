@@ -1,0 +1,13 @@
+theme = "catppuccin-mocha"
+#bold-is-bright = true
+# UI
+font-family = MesloLGS NF
+font-size = 26
+font-thicken = true
+adjust-cell-width = 0
+adjust-cell-height = 0
+
+macos-option-as-alt = true
+clipboard-read = "allow"
+clipboard-paste-protection = false
+
