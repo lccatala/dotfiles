@@ -1,7 +1,7 @@
-colorscheme = 'tokyonight-night'
+require('maps')
 require('plugins')
 require('base')
-require('maps')
+require('highlights')
 
 local has = function(x)
   return vim.fn.has(x) == 1
@@ -11,7 +11,7 @@ local is_mac = has "macunix"
 local is_win = has "win32"
 
 if is_mac then
-  require('macos')
+  -- require('macos')
 end
 
 if is_win then

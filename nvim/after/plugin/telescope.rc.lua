@@ -1,4 +1,5 @@
-local actions = require("telescope.actions")
+local status, actions = pcall(require, 'telescope.actions')
+if (not status) then return end
 require('telescope').setup{
   defaults = {
     -- Default configuration for telescope goes here:
@@ -29,12 +30,38 @@ require('telescope').setup{
     -- please take a look at the readme of the extension you want to configure
   }
 }
+
+local TelescopePrompt = {
+    TelescopePromptNormal = {
+        bg = '#2d3149',
+    },
+    TelescopePromptBorder = {
+        bg = '#2d3149',
+    },
+    TelescopePromptTitle = {
+        fg = '#2d3149',
+        bg = '#2d3149',
+    },
+    TelescopePreviewTitle = {
+        fg = '#1F2335',
+        bg = '#1F2335',
+    },
+    TelescopeResultsTitle = {
+        fg = '#1F2335',
+        bg = '#1F2335',
+    },
+}
+for hl, col in pairs(TelescopePrompt) do
+    vim.api.nvim_set_hl(0, hl, col)
+end
+
 local builtin = require('telescope.builtin')
 local keymap = vim.keymap
 
 -- keymap.set('n', '<C-p>', builtin.find_files(require('telescope.themes').get_ivy({})))
 -- keymap.set('n', '<C-p>', builtin.find_files, {})
 keymap.set('n', '<leader>sf', builtin.find_files, {})
+-- keymap.set('n', '<leader>sf', builtin.find_files({hidden=true}), {})
 keymap.set('n', '<leader>sw', builtin.live_grep, {})
 keymap.set('n', '<leader>sb', builtin.buffers, {})
 keymap.set('n', '<leader>ggf', builtin.git_files, {})

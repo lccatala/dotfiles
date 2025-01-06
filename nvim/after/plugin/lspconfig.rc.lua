@@ -1,24 +1,43 @@
+local status, cmp = pcall(require, "cmp_nvim_lsp")
+if (not status) then return end
+
+local status, lspconfig = pcall(require, "lspconfig")
+if (not status) then return end
+
+local status, neodev = pcall(require, "neodev")
+if status then
+    neodev.setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+    })
+end
+local capabilities = cmp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     opts = {buffer=0}
-    opts = {buffer=0, border="single"}
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    opts = {buffer=0}
+    -- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gu", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, opts)
-    vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, opts)
+    -- vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, opts)
+    -- vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, opts)
     vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", opts)
-    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
+    -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help)
+    -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help)
 end
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local flags = {
 	-- This is the default in Nvim 0.7+
 	debounce_text_changes = 150,
+}
+
+require'lspconfig'.ts_ls.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = flags
 }
 
 require'lspconfig'.pyright.setup{
@@ -27,11 +46,6 @@ require'lspconfig'.pyright.setup{
   flags = flags
 }
 
--- require'lspconfig'.sourcekit.setup{
---     capabilities = capabilities,
---     on_attach = on_attach,
---     flags = flags
--- }
 require'lspconfig'.clangd.setup{
     capabilities = capabilities,
     on_attach = on_attach,
@@ -53,6 +67,14 @@ require('lspconfig')['rust_analyzer'].setup{
     }
 }
 
+require'lspconfig'.gopls.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = flags,
+  cmd = {"gopls"},
+  filetypes = {"go", "gomod", "gowork", "gotmpl"},
+  root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod", ".git")
+}
 -- require('lspkind').init({
 --     -- DEPRECATED (use mode instead): enables text annotations
 --     --
